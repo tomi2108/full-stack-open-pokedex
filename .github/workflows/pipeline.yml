@@ -32,7 +32,7 @@ jobs:
           start: npm run start
           wait-on: http://localhost:5000
       - name: Discord Webhook Notify
-        if: ${{failure()}}
+        if: failure()
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
@@ -63,7 +63,7 @@ jobs:
           DEFAULT_BUMP: "#patch"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
       - name: Discord Webhook Notify
-        if: ${{success()}}
+        if: success()
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
