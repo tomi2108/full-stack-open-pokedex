@@ -31,9 +31,10 @@ jobs:
           command: npm run test:e2e
           start: npm run start
           wait-on: http://localhost:5000
-      - name: Heroku deploy
+      - name: Git pull
         run:
             git pull
+      - name: Heroku deploy
         if: ${{ github.event_name == 'push' }}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
