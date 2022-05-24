@@ -31,7 +31,7 @@ jobs:
           command: npm run test:e2e
           start: npm run start
           wait-on: http://localhost:5000
-      - name: Discord Webhook Notify
+      - name: Discord Webhook Notify Failure
         if: failure()
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
@@ -40,6 +40,15 @@ jobs:
           color: FF0000
           text: Build failed
           description: commit ${{github.sha}}
+      - name: Discord Webhook Notify Success
+        if: success()
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          severity: info
+          color: 00FF00
+          text: A new version of Pokedex deployed 
+          description: to https://${{secrets.HEROKU_APP}}.herokuapp.com/ by tsn
       - name: Heroku deploy
         if: ${{ github.event_name == 'push' }}
         uses: akhileshns/heroku-deploy@v3.12.12
@@ -62,12 +71,3 @@ jobs:
         env:
           DEFAULT_BUMP: "#patch"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}     
-      - name: Discord Webhook Notify
-        if: success()
-        uses: rjstone/discord-webhook-notify@v1.0.4
-        with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          severity: info
-          color: 00FF00
-          text: A new version of Pokedex deployed 
-          description: to https://${{secrets.HEROKU_APP}}.herokuapp.com/ by tsn
