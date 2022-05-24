@@ -37,7 +37,6 @@ jobs:
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           severity: error
-          color: FF0000
           text: Build failed
           description: commit ${{github.sha}}
       - name: Discord Webhook Notify Success
@@ -46,7 +45,6 @@ jobs:
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           severity: info
-          color: 00FF00
           text: A new version of Pokedex deployed 
           description: to https://${{secrets.HEROKU_APP}}.herokuapp.com/ by tsn
       - name: Heroku deploy
