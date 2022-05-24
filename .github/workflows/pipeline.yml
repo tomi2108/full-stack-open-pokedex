@@ -47,7 +47,7 @@ jobs:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           severity: error
           text: Build failed
-          description: commit ${{github.sha}}
+          description: commit ${{github.event.head_commit.}}
       - name: Discord Webhook Notify Success
         if: success()
         uses: rjstone/discord-webhook-notify@v1.0.4
